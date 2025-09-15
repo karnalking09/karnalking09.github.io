@@ -7,10 +7,10 @@
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">Broken Access Control Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test IDOR (user can access others’ data?)</li>
-        <li>🔹 Check role-based access control (RBAC) bypass</li>
-        <li>🔹 Force browsing to unauthorized URLs</li>
-        <li>🔹 Check API endpoints with different roles</li>
+        <li>🔹 Test IDOR (Insecure Direct Object References)</li>
+        <li>🔹 Check role-based access (admin vs normal)</li>
+        <li>🔹 Privilege escalation via forced browsing</li>
+        <li>🔹 API endpoints without proper authorization</li>
       </ul>
       <p class="mt-3 text-xs text-gray-400">Defense: Enforce RBAC, check object-level access, deny by default.</p>
     </div>
@@ -19,155 +19,156 @@
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">Clickjacking Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test with iframes embedding target site</li>
-        <li>🔹 Look for missing <code>X-Frame-Options</code> header</li>
-        <li>🔹 Check sensitive actions (delete, transfer) inside frames</li>
+        <li>🔹 Test iframe embedding of sensitive pages</li>
+        <li>🔹 Missing <code>X-Frame-Options</code> / CSP headers</li>
+        <li>🔹 Hidden buttons or UI redress attacks</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use X-Frame-Options or CSP frame-ancestors.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use <code>X-Frame-Options:DENY</code> or CSP frame-ancestors.</p>
     </div>
 
     <!-- Cryptographic Failures -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">Cryptographic Failures Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Check for HTTP (no TLS) usage</li>
-        <li>🔹 Weak SSL/TLS ciphers (SSLv3, RC4)</li>
-        <li>🔹 Hardcoded or default keys</li>
-        <li>🔹 Sensitive data stored unhashed</li>
+        <li>🔹 Use of weak algorithms (MD5, SHA1, RC4)</li>
+        <li>🔹 Missing TLS/HTTPS enforcement</li>
+        <li>🔹 Sensitive data in plaintext (DB, logs)</li>
+        <li>🔹 Insecure key management or reuse</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use strong TLS, hash + salt sensitive data, rotate keys.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use AES-256, TLS1.2+, proper key rotation, secure storage.</p>
     </div>
 
     <!-- CSRF -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">CSRF Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Look for actions with no CSRF token</li>
-        <li>🔹 Test with cross-site POST requests</li>
-        <li>🔹 Check SameSite cookie misconfigs</li>
+        <li>🔹 Check for state-changing requests without tokens</li>
+        <li>🔹 Missing SameSite cookie attribute</li>
+        <li>🔹 Predictable or reusable CSRF tokens</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Add CSRF tokens, SameSite=strict, re-auth for sensitive ops.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Anti-CSRF tokens, SameSite cookies, re-authentication.</p>
     </div>
 
     <!-- Information Disclosure -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">Information Disclosure Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Check error messages for stack traces</li>
-        <li>🔹 Look for .git/.env/.bak files exposed</li>
-        <li>🔹 Review response headers for leaks</li>
+        <li>🔹 Debug info or stack traces exposed</li>
+        <li>🔹 Sensitive files (robots.txt, .git, backups)</li>
+        <li>🔹 Leaked API keys or credentials in JS</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Disable verbose errors, block sensitive files, sanitize logs.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Remove debug endpoints, secure file configs, use DLP scanning.</p>
     </div>
 
     <!-- OAuth -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">OAuth Vulnerability Checklist</h3>
+      <h3 class="font-semibold">OAuth Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test redirect_uri parameter tampering</li>
-        <li>🔹 Check for missing state parameter (CSRF)</li>
-        <li>🔹 Look for scope escalation</li>
+        <li>🔹 Open redirects in redirect_uri</li>
+        <li>🔹 Missing PKCE for mobile/SPA apps</li>
+        <li>🔹 Token leakage via logs or URLs</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Validate redirect URIs, enforce state, limit scopes.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Enforce PKCE, validate redirect URIs, secure token storage.</p>
     </div>
 
     <!-- OS Command Injection -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">OS Command Injection Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Inject commands with ; && | operators</li>
-        <li>🔹 Test file upload leading to command exec</li>
-        <li>🔹 Try time-based payloads (ping, sleep)</li>
+        <li>🔹 User input in system() / exec()</li>
+        <li>🔹 Unsanitized shell commands</li>
+        <li>🔹 Chaining commands with ; && |</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Avoid shell calls, whitelist inputs, use safe APIs.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Avoid shell calls, sanitize inputs, use parameterized APIs.</p>
     </div>
 
     <!-- Path Traversal -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">Path Traversal Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Try ../../etc/passwd</li>
-        <li>🔹 Test with encoded variants (%2e%2e/)</li>
-        <li>🔹 Look for traversal in zip/tar archives</li>
+        <li>🔹 Inputs with <code>../</code> sequences</li>
+        <li>🔹 Access to /etc/passwd, config files</li>
+        <li>🔹 Null byte or encoding bypasses</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Normalize paths, restrict file access, sandbox uploads.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Normalize paths, enforce base dir, whitelist files.</p>
     </div>
 
     <!-- SQL Injection -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
       <h3 class="font-semibold">SQL Injection Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test query params with ' " -- #</li>
-        <li>🔹 Union-based injection (UNION SELECT)</li>
-        <li>🔹 Boolean/time-based blind SQLi</li>
+        <li>🔹 Check login bypass attempts</li>
+        <li>🔹 UNION-based data extraction</li>
+        <li>🔹 Boolean/Time-based blind SQLi</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Prepared statements, ORM, WAF rules.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use prepared statements, parameterized queries.</p>
     </div>
 
     <!-- Business Logic -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Business Logic Vulnerabilities</h3>
+      <h3 class="font-semibold">Business Logic Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test workflow bypasses (e.g. checkout skip)</li>
-        <li>🔹 Negative price/order manipulation</li>
-        <li>🔹 Abuse of API sequence</li>
+        <li>🔹 Test workflow bypass (e.g. skip payment)</li>
+        <li>🔹 Abuse of discounts, coupons, limits</li>
+        <li>🔹 Race conditions in transactions</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Strict server-side validation, business rules checks.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Validate business rules server-side.</p>
     </div>
 
     <!-- JWT -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">JWT Vulnerability Checklist</h3>
+      <h3 class="font-semibold">JWT Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test alg=none bypass</li>
-        <li>🔹 Key confusion / weak secrets</li>
-        <li>🔹 JWT not expiring after logout</li>
+        <li>🔹 "none" algorithm acceptance</li>
+        <li>🔹 Weak secrets for HS256</li>
+        <li>🔹 Token not expiring / revocable</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use strong signing, rotate keys, validate claims.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use RS256, rotate keys, validate signature properly.</p>
     </div>
 
     <!-- XSS -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Pro XSS Hunting Field Manual</h3>
+      <h3 class="font-semibold">XSS Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Reflected, stored, DOM-based XSS</li>
-        <li>🔹 Try polyglot payloads (SVG, JSON)</li>
-        <li>🔹 Check CSP bypasses</li>
+        <li>🔹 Reflected XSS in query params</li>
+        <li>🔹 Stored XSS in comments/inputs</li>
+        <li>🔹 DOM XSS in JS variables</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Output encode, CSP, input sanitize.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Escape output, CSP, avoid innerHTML with untrusted input.</p>
     </div>
 
     <!-- File Upload -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">File Upload Vulnerability Checklist</h3>
+      <h3 class="font-semibold">File Upload Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Upload php/jsp/aspx shells</li>
-        <li>🔹 Bypass extension filter (.php;.jpg)</li>
-        <li>🔹 Check for file overwrite (../../)</li>
+        <li>🔹 Uploading executable files</li>
+        <li>🔹 Bypass extension checks (.php.jpg)</li>
+        <li>🔹 Direct access to upload folder</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Validate MIME, randomize file names, store outside webroot.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Validate MIME type, store outside webroot, scan uploads.</p>
     </div>
 
     <!-- SSRF -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">SSRF Hunting Checklist</h3>
+      <h3 class="font-semibold">SSRF Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test http://localhost, 127.0.0.1</li>
-        <li>🔹 Access cloud metadata (AWS/GCP/Azure)</li>
-        <li>🔹 Try DNS rebinding</li>
+        <li>🔹 Check URL fetchers (PDF, image import)</li>
+        <li>🔹 Access to 127.0.0.1, metadata endpoints</li>
+        <li>🔹 Port scanning via SSRF</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Whitelist URLs, block internal IPs, use SSRF filters.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Allowlist domains, block internal IP ranges.</p>
     </div>
 
     <!-- Authentication -->
     <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Authentication Vulnerability Checklist</h3>
+      <h3 class="font-semibold">Authentication Checklist</h3>
       <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Check weak password policies</li>
-        <li>🔹 Test 2FA bypass (disable, backup codes)</li>
-        <li>🔹 Check session fixation</li>
+        <li>🔹 Weak password policies</li>
+        <li>🔹 Missing 2FA/MFA</li>
+        <li>🔹 Session fixation or reuse</li>
+        <li>🔹 Password reset flaws</li>
       </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Enforce MFA, strong password rules, secure session mgmt.</p>
+      <p class="mt-3 text-xs text-gray-400">Defense: Enforce MFA, secure reset flows, use bcrypt/argon2.</p>
     </div>
 
   </div>
