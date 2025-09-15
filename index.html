@@ -1,175 +1,161 @@
-<!-- CHECKLISTS SECTION -->
-<section id="checklists" class="max-w-6xl mx-auto px-6 py-12">
-  <h2 class="text-2xl font-bold mb-6">Bug Bounty Hunting Checklists</h2>
-  <div class="grid md:grid-cols-2 gap-6">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dev — Bug Bounty Hunter & Security Researcher</title>
+  <meta name="description" content="Professional bug bounty hunting, ethical security research, write-ups and responsible disclosure." />
+  <!-- Tailwind CDN (production should use a build pipeline) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Small custom tweaks */
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
+    .accent { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 antialiased">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 backdrop-blur glass border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg accent flex items-center justify-center text-white font-bold">DK</div>
+        <div>
+          <div class="text-sm font-semibold">Dev — Security Research</div>
+          <div class="text-xs text-gray-400">Bug Bounty • Responsible Disclosure</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#about" class="hover:text-white">About</a>
+        <a href="#services" class="hover:text-white">Services</a>
+        <a href="#writeups" class="hover:text-white">Write‑ups</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+        <a href="#" class="px-3 py-2 bg-indigo-600 rounded-md text-sm font-medium">Hire / Report</a>
+      </nav>
+      <button class="md:hidden p-2 rounded-md border border-gray-700">☰</button>
+    </div>
+  </header>
 
-    <!-- Broken Access Control -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Broken Access Control Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test IDOR (Insecure Direct Object References)</li>
-        <li>🔹 Check role-based access (admin vs normal)</li>
-        <li>🔹 Privilege escalation via forced browsing</li>
-        <li>🔹 API endpoints without proper authorization</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Enforce RBAC, check object-level access, deny by default.</p>
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
+    <div class="flex-1">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Professional Bug Bounty Hunting<br class="hidden md:inline"> & Responsible Security Research</h1>
+      <p class="mt-4 text-gray-300 max-w-xl">Modern approach to web & mobile security: recon, vulnerability discovery, high-quality write-ups and responsible disclosure. All testing performed ethically and with permission or within public bug-bounty programs.</p>
+      <div class="mt-6 flex gap-3">
+        <a href="#contact" class="px-5 py-3 bg-indigo-600 rounded-lg font-medium">Report a vulnerability</a>
+        <a href="#writeups" class="px-5 py-3 border border-gray-700 rounded-lg">Read write‑ups</a>
+      </div>
+
+      <!-- quick stats -->
+      <div class="mt-8 grid grid-cols-3 gap-4 max-w-sm text-center text-gray-200">
+        <div>
+          <div class="text-2xl font-semibold">+120</div>
+          <div class="text-xs text-gray-400">Valid findings</div>
+        </div>
+        <div>
+          <div class="text-2xl font-semibold">$45k+</div>
+          <div class="text-xs text-gray-400">Bounties earned</div>
+        </div>
+        <div>
+          <div class="text-2xl font-semibold">100%</div>
+          <div class="text-xs text-gray-400">Responsible disclosures</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Clickjacking -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Clickjacking Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test iframe embedding of sensitive pages</li>
-        <li>🔹 Missing <code>X-Frame-Options</code> / CSP headers</li>
-        <li>🔹 Hidden buttons or UI redress attacks</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use <code>X-Frame-Options:DENY</code> or CSP frame-ancestors.</p>
+    <div class="flex-1">
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl border border-gray-800">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="security" class="rounded-lg shadow-lg object-cover w-full h-64">
+        <div class="mt-4 text-sm text-gray-400">Ethical mindset — proofs, writeups and clean reports. (No illegal hacking.)</div>
+      </div>
     </div>
+  </section>
 
-    <!-- Cryptographic Failures -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Cryptographic Failures Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Use of weak algorithms (MD5, SHA1, RC4)</li>
-        <li>🔹 Missing TLS/HTTPS enforcement</li>
-        <li>🔹 Sensitive data in plaintext (DB, logs)</li>
-        <li>🔹 Insecure key management or reuse</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use AES-256, TLS1.2+, proper key rotation, secure storage.</p>
+  <!-- ABOUT -->
+  <section id="about" class="max-w-6xl mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-2xl font-bold">About</h2>
+        <p class="mt-3 text-gray-300">I help organizations find real security issues before attackers do. Focus areas include web applications, mobile apps, APIs and cloud misconfigurations — all tested under legal and authorized scopes (bug bounty platforms, engagement contracts, or explicit permission).</p>
+
+        <ul class="mt-4 space-y-2 text-gray-300">
+          <li>✅ Responsible disclosure & clear remediation guidance</li>
+          <li>✅ High-quality, reproducible Proof of Concepts (PoCs)</li>
+          <li>✅ Full writeups and timelines for triage</li>
+        </ul>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+        <h3 class="text-lg font-semibold">Legal & Ethics</h3>
+        <p class="mt-2 text-sm text-gray-400">This site and the services offered are strictly for legal, authorized security testing (bug bounty programs and contracted engagements). I will not assist or provide guidance for illegal hacking, account takeover, phishing, or any activity that violates laws or platform terms.</p>
+      </div>
     </div>
+  </section>
 
-    <!-- CSRF -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">CSRF Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Check for state-changing requests without tokens</li>
-        <li>🔹 Missing SameSite cookie attribute</li>
-        <li>🔹 Predictable or reusable CSRF tokens</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Anti-CSRF tokens, SameSite cookies, re-authentication.</p>
+  <!-- SERVICES -->
+  <section id="services" class="max-w-6xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-bold">Services</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-6">
+      <div class="p-6 bg-gray-800 rounded-lg border border-gray-700">
+        <h4 class="font-semibold">Bug Bounty Hunting</h4>
+        <p class="mt-2 text-sm text-gray-400">Targeted testing within public programs (HackerOne, Bugcrowd, platform-specific programs). High-signal reports focusing on impact & reproducibility.</p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg border border-gray-700">
+        <h4 class="font-semibold">Pentest & Recon</h4>
+        <p class="mt-2 text-sm text-gray-400">Scoped engagement testing: web, API, mobile and cloud recon, and prioritized findings with remediation steps.</p>
+      </div>
+      <div class="p-6 bg-gray-800 rounded-lg border border-gray-700">
+        <h4 class="font-semibold">Write‑ups & Training</h4>
+        <p class="mt-2 text-sm text-gray-400">Detailed writeups, public blog posts about techniques (ethical) and internal training for engineering teams.</p>
+      </div>
     </div>
+  </section>
 
-    <!-- Information Disclosure -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Information Disclosure Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Debug info or stack traces exposed</li>
-        <li>🔹 Sensitive files (robots.txt, .git, backups)</li>
-        <li>🔹 Leaked API keys or credentials in JS</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Remove debug endpoints, secure file configs, use DLP scanning.</p>
+  <!-- WRITEUPS / BLOG -->
+  <section id="writeups" class="max-w-6xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-bold">Recent write‑ups</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <article class="p-4 bg-gray-800 rounded-lg border border-gray-700">
+        <h3 class="font-semibold">Insecure Direct Object Reference — case study</h3>
+        <p class="mt-2 text-sm text-gray-400">Summary and remediation steps. (Public writeup, no exploit code that enables abuse.)</p>
+        <a href="#" class="mt-3 inline-block text-sm text-indigo-400">Read more →</a>
+      </article>
+      <!-- Card 2 -->
+      <article class="p-4 bg-gray-800 rounded-lg border border-gray-700">
+        <h3 class="font-semibold">API auth bypass — lessons learned</h3>
+        <p class="mt-2 text-sm text-gray-400">How the issue was found and fixed, with mitigation tips for developers.</p>
+        <a href="#" class="mt-3 inline-block text-sm text-indigo-400">Read more →</a>
+      </article>
+      <!-- Card 3 -->
+      <article class="p-4 bg-gray-800 rounded-lg border border-gray-700">
+        <h3 class="font-semibold">Secure mobile storage patterns</h3>
+        <p class="mt-2 text-sm text-gray-400">Responsible bug hunting on mobile: what to test and what to avoid publishing.</p>
+        <a href="#" class="mt-3 inline-block text-sm text-indigo-400">Read more →</a>
+      </article>
     </div>
+  </section>
 
-    <!-- OAuth -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">OAuth Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Open redirects in redirect_uri</li>
-        <li>🔹 Missing PKCE for mobile/SPA apps</li>
-        <li>🔹 Token leakage via logs or URLs</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Enforce PKCE, validate redirect URIs, secure token storage.</p>
+  <!-- CONTACT -->
+  <section id="contact" class="max-w-6xl mx-auto px-6 py-12">
+    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+      <h2 class="text-2xl font-bold">Contact / Report</h2>
+      <p class="mt-2 text-sm text-gray-400">Use this form to share a security report or request engagement details. For immediate triage please include URL, impact summary and steps to reproduce.</p>
+      <form class="mt-4 grid gap-4 md:grid-cols-2">
+        <input placeholder="Your name" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
+        <input placeholder="Email" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
+        <input placeholder="Target URL (if applicable)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" />
+        <textarea placeholder="Short summary of the issue (don’t include exploit code)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" rows="5"></textarea>
+        <button type="submit" class="md:col-span-2 px-4 py-3 bg-indigo-600 rounded-md">Send report</button>
+      </form>
     </div>
+  </section>
 
-    <!-- OS Command Injection -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">OS Command Injection Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 User input in system() / exec()</li>
-        <li>🔹 Unsanitized shell commands</li>
-        <li>🔹 Chaining commands with ; && |</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Avoid shell calls, sanitize inputs, use parameterized APIs.</p>
+  <!-- FOOTER -->
+  <footer class="mt-12 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-400">
+      <div>© 2025 Dev — Bug Bounty & Security Research</div>
+      <div class="mt-3 md:mt-0">Made for legal, authorized security testing only • <a href="#" class="text-indigo-400">Responsible Disclosure Policy</a></div>
     </div>
+  </footer>
 
-    <!-- Path Traversal -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Path Traversal Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Inputs with <code>../</code> sequences</li>
-        <li>🔹 Access to /etc/passwd, config files</li>
-        <li>🔹 Null byte or encoding bypasses</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Normalize paths, enforce base dir, whitelist files.</p>
-    </div>
-
-    <!-- SQL Injection -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">SQL Injection Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Check login bypass attempts</li>
-        <li>🔹 UNION-based data extraction</li>
-        <li>🔹 Boolean/Time-based blind SQLi</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use prepared statements, parameterized queries.</p>
-    </div>
-
-    <!-- Business Logic -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Business Logic Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Test workflow bypass (e.g. skip payment)</li>
-        <li>🔹 Abuse of discounts, coupons, limits</li>
-        <li>🔹 Race conditions in transactions</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Validate business rules server-side.</p>
-    </div>
-
-    <!-- JWT -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">JWT Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 "none" algorithm acceptance</li>
-        <li>🔹 Weak secrets for HS256</li>
-        <li>🔹 Token not expiring / revocable</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Use RS256, rotate keys, validate signature properly.</p>
-    </div>
-
-    <!-- XSS -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">XSS Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Reflected XSS in query params</li>
-        <li>🔹 Stored XSS in comments/inputs</li>
-        <li>🔹 DOM XSS in JS variables</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Escape output, CSP, avoid innerHTML with untrusted input.</p>
-    </div>
-
-    <!-- File Upload -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">File Upload Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Uploading executable files</li>
-        <li>🔹 Bypass extension checks (.php.jpg)</li>
-        <li>🔹 Direct access to upload folder</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Validate MIME type, store outside webroot, scan uploads.</p>
-    </div>
-
-    <!-- SSRF -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">SSRF Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Check URL fetchers (PDF, image import)</li>
-        <li>🔹 Access to 127.0.0.1, metadata endpoints</li>
-        <li>🔹 Port scanning via SSRF</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Allowlist domains, block internal IP ranges.</p>
-    </div>
-
-    <!-- Authentication -->
-    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-      <h3 class="font-semibold">Authentication Checklist</h3>
-      <ul class="mt-3 space-y-2 text-sm text-gray-300">
-        <li>🔹 Weak password policies</li>
-        <li>🔹 Missing 2FA/MFA</li>
-        <li>🔹 Session fixation or reuse</li>
-        <li>🔹 Password reset flaws</li>
-      </ul>
-      <p class="mt-3 text-xs text-gray-400">Defense: Enforce MFA, secure reset flows, use bcrypt/argon2.</p>
-    </div>
-
-  </div>
-</section>
+</body>
+</html>
