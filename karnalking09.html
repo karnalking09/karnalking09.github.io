@@ -1,81 +1,71 @@
 # app.rb
-<section id="contact" class="max-w-6xl mx-auto px-6 py-12">
-<div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-<h2 class="text-2xl font-bold">Contact / Report</h2>
-<p class="mt-2 text-sm text-gray-400">Use this form to share a security report or request engagement details. For immediate triage please include URL, impact summary and steps to reproduce.</p>
-<form class="mt-4 grid gap-4 md:grid-cols-2" action="/report" method="post">
-<input name="name" placeholder="Your name" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
-<input name="email" placeholder="Email" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
-<input name="target" placeholder="Target URL (if applicable)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" />
-<textarea name="summary" placeholder="Short summary of the issue (don’t include exploit code)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" rows="5"></textarea>
-<button type="submit" class="md:col-span-2 px-4 py-3 bg-indigo-600 rounded-md">Send report</button>
-</form>
-</div>
-</section>
 
 
-<!-- Report template & resources -->
-<section class="mt-6 grid md:grid-cols-2 gap-6">
-<div class="p-6 bg-gray-800 rounded-lg">
-<h2 class="text-lg font-semibold">Report template (fields)</h2>
-<ol class="list-decimal ml-4 mt-2 text-gray-200 text-sm">
-<li>Title</li>
-<li>Affected URL / API endpoint</li>
-<li>Parameter / input vector</li>
-<li>Observed behavior (screenshots/requests)</li>
-<li>Impact - why it matters</li>
-<li>Fix / remediation suggestion</li>
-<li>Timeline and contact</li>
-</ol>
-</div>
+require 'sinatra'
+require 'erb'
 
 
-<div class="p-6 bg-gray-800 rounded-lg">
-<h2 class="text-lg font-semibold">Learning resources</h2>
-<ul class="mt-2 text-gray-200 text-sm">
-<li>PortSwigger Academy</li>
-<li>OWASP Juice Shop</li>
-<li>DVWA / WebGoat</li>
-<li>Official bug bounty program docs (HackerOne, Bugcrowd)</li>
-</ul>
-</div>
-</section>
+set :bind, '0.0.0.0'
+set :port, 4567
 
 
-<section class="mt-6 p-6 bg-gray-800 rounded-lg">
-<h2 class="text-xl font-semibold">Local lab: Docker Compose (OWASP Juice Shop)</h2>
-<p class="text-gray-300">Copy into <code>docker-compose.yml</code> and run <code>docker-compose up -d</code>.</p>
-<pre class="bg-gray-900 p-3 rounded text-xs overflow-auto text-gray-200">version: "3"
-services:
-juice-shop:
-image: bkimminich/juice-shop:latest
-ports:
-- "3000:3000"
-restart: unless-stopped
-</pre>
-<p class="text-sm text-gray-400">Access the lab at <code>http://localhost:3000</code>. Practice there — do not test real third-party systems without permission.</p>
-</section>
-
-
-<section class="mt-6 p-6 bg-gray-800 rounded-lg">
-<h2 class="text-xl font-semibold">Sanitized secure snippets (Ruby)</h2>
-<pre class="bg-gray-900 p-3 rounded text-xs overflow-auto text-gray-200"># Parameterized query (Sequel)
-DB[:users].where(name: params['name']).all
-
-
-# ERB escape example
-&lt;%= h(user_input) %&gt;
-
-
-# Path traversal blocker
-requested = File.expand_path(params['file'], "/srv/app/files")
-if requested.start_with?(File.expand_path("/srv/app/files"))
-send_file requested
-else
-halt 403, "Forbidden"
+helpers do
+def safe_text(text)
+Rack::Utils.escape_html(text.to_s)
 end
-</pre>
-</section>
+end
 
 
-<footer class="mt-8 text-sm text-gray-400">RUBI LEGBEJE — This site is educational and defensive. I will NOT provide exploit payloads usable against third-party systems. Options: (A) Generate downloadable PDF report template. (B) Create a ready-to-run docker-compose lab ZIP. (C) Add download buttons for scripts and PDFs.</footer>
+get '/' do
+@title = "RUBI LEGBEJE — Bug Bounty & Security Resources (Ruby)"
+erb :index
+end
+
+
+post '/report' do
+# Simple save-to-file for incoming reports (authorized use only)
+name = params['name'] || 'anonymous'
+email = params['email'] || ''
+target = params['target'] || ''
+summary = params['summary'] || ''
+File.open("reports.txt","a") do |f|
+f.puts "---"
+f.puts "Time: #{Time.now}
+Name: #{name}
+Email: #{email}
+Target: #{target}
+Summary: #{summary}
+"
+end
+redirect '/'
+end
+
+
+__END__
+
+
+@@ layout
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title><%= safe_text(@title) %></title>
+<meta name="description" content="Professional bug bounty hunting, ethical security research, write-ups and responsible disclosure." />
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+.glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
+.accent { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
+.brand { background: linear-gradient(90deg,#ff4d6d,#7c3aed); -webkit-background-clip: text; color: transparent; }
+pre { white-space: pre-wrap; }
+</style>
+</head>
+<body class="bg-gray-900 text-gray-100 antialiased">
+<header class="sticky top-0 z-50 backdrop-blur glass border-b border-gray-800">
+<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+<a href="#" class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg accent flex items-center justify-center text-white font-bold">DK</div>
+<div>
+<div class="text-sm font-semibold">Dev — Security Research</div>
+<footer class="mt-8 text-sm text-gray-400">RUBI LEGBEJE — This site is educational and defensive. I will NOT provide exploit payloads usable against third-party systems. Options: (A) Generate downloadable PDF/ZIP with READMEs & docker-compose. (B) Add per-folder pages with more defensive snippets. (C) Add contact + report saving (already implemented).</footer>
