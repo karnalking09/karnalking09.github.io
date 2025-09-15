@@ -1,71 +1,71 @@
-# app.rb
-
-
-require 'sinatra'
-require 'erb'
-
-
-set :bind, '0.0.0.0'
-set :port, 4567
-
-
-helpers do
-def safe_text(text)
-Rack::Utils.escape_html(text.to_s)
-end
-end
-
-
-get '/' do
-@title = "RUBI LEGBEJE — Bug Bounty & Security Resources (Ruby)"
-erb :index
-end
-
-
-post '/report' do
-# Simple save-to-file for incoming reports (authorized use only)
-name = params['name'] || 'anonymous'
-email = params['email'] || ''
-target = params['target'] || ''
-summary = params['summary'] || ''
-File.open("reports.txt","a") do |f|
-f.puts "---"
-f.puts "Time: #{Time.now}
-Name: #{name}
-Email: #{email}
-Target: #{target}
-Summary: #{summary}
-"
-end
-redirect '/'
-end
-
-
-__END__
-
-
-@@ layout
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title><%= safe_text(@title) %></title>
-<meta name="description" content="Professional bug bounty hunting, ethical security research, write-ups and responsible disclosure." />
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-.glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
-.accent { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
-.brand { background: linear-gradient(90deg,#ff4d6d,#7c3aed); -webkit-background-clip: text; color: transparent; }
-pre { white-space: pre-wrap; }
-</style>
+  <meta charset="utf-8" />
+  <title>RUBI LEGBEJE — Bug Bounty Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 antialiased">
-<header class="sticky top-0 z-50 backdrop-blur glass border-b border-gray-800">
-<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-<a href="#" class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-lg accent flex items-center justify-center text-white font-bold">DK</div>
-<div>
-<div class="text-sm font-semibold">Dev — Security Research</div>
-<footer class="mt-8 text-sm text-gray-400">RUBI LEGBEJE — This site is educational and defensive. I will NOT provide exploit payloads usable against third-party systems. Options: (A) Generate downloadable PDF/ZIP with READMEs & docker-compose. (B) Add per-folder pages with more defensive snippets. (C) Add contact + report saving (already implemented).</footer>
+<body class="bg-gray-900 text-gray-100">
+  <header class="p-6 bg-gray-800 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-pink-400">RUBI LEGBEJE</h1>
+    <a href="rubi_site.zip" download class="px-4 py-2 bg-indigo-600 rounded">⬇ Download Full Site</a>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6 space-y-6">
+    <section class="grid md:grid-cols-2 gap-6">
+      <!-- SQL -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">SQL</h2>
+        <p class="text-gray-400">Learn SQLi defense patterns, lab tasks, and reporting tips.</p>
+        <a href="sql/README.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open README</a>
+      </div>
+
+      <!-- XSS -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">XSS</h2>
+        <p class="text-gray-400">Understand cross-site scripting, secure coding, and mitigation.</p>
+        <a href="xss/README.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open README</a>
+      </div>
+
+      <!-- SSRF -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">SSRF</h2>
+        <p class="text-gray-400">Safe SSRF testing in lab and defense strategies.</p>
+        <a href="ssrf/README.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open README</a>
+      </div>
+
+      <!-- Path Traversal -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">Path Traversal</h2>
+        <p class="text-gray-400">Prevent unauthorized file access with secure code patterns.</p>
+        <a href="path-traversal/README.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open README</a>
+      </div>
+
+      <!-- Recon -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">Recon</h2>
+        <p class="text-gray-400">Step by step recon methodology with tools overview.</p>
+        <a href="recon/README.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open README</a>
+      </div>
+
+      <!-- Tools -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">Tools</h2>
+        <p class="text-gray-400">Bug bounty & pentest tools with safe usage notes.</p>
+        <a href="tools/tools.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open Tools</a>
+      </div>
+
+      <!-- Reports -->
+      <div class="p-6 bg-gray-800 rounded-lg">
+        <h2 class="text-xl font-semibold">Reports</h2>
+        <p class="text-gray-400">Markdown report template for structured disclosure.</p>
+        <a href="reports/report_template.md" class="mt-3 inline-block px-4 py-2 bg-indigo-600 rounded">Open Template</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-12 p-6 text-center text-gray-500 text-sm">
+    © 2025 RUBI LEGBEJE • Educational & defensive use only • Bug Bounty & Ethical Hacking
+  </footer>
+</body>
+</html>
