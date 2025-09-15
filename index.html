@@ -1,143 +1,174 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dev — Bug Bounty Knowledge & Tools</title>
-  <meta name="description" content="Bug bounty hunting resources, payload knowledge and security tools with legal, ethical use only." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
-    .accent { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
-  </style>
-</head>
-<body class="bg-gray-900 text-gray-100 antialiased">
+<!-- CHECKLISTS SECTION -->
+<section id="checklists" class="max-w-6xl mx-auto px-6 py-12">
+  <h2 class="text-2xl font-bold mb-6">Bug Bounty Hunting Checklists</h2>
+  <div class="grid md:grid-cols-2 gap-6">
 
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 glass border-b border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg accent flex items-center justify-center text-white font-bold">DK</div>
-        <div>
-          <div class="text-sm font-semibold">Dev — Security Research</div>
-          <div class="text-xs text-gray-400">Bug Bounty • Responsible Disclosure</div>
-        </div>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#about" class="hover:text-white">About</a>
-        <a href="#knowledge" class="hover:text-white">Knowledge</a>
-        <a href="#tools" class="hover:text-white">Tools</a>
-        <a href="#writeups" class="hover:text-white">Write-ups</a>
-        <a href="#contact" class="hover:text-white">Contact</a>
-      </nav>
+    <!-- Broken Access Control -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Broken Access Control Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test IDOR (user can access others’ data?)</li>
+        <li>🔹 Check role-based access control (RBAC) bypass</li>
+        <li>🔹 Force browsing to unauthorized URLs</li>
+        <li>🔹 Check API endpoints with different roles</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Enforce RBAC, check object-level access, deny by default.</p>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section class="max-w-6xl mx-auto px-6 py-16 text-center">
-    <h1 class="text-4xl md:text-5xl font-extrabold">Bug Bounty Knowledge Hub</h1>
-    <p class="mt-4 text-gray-300 max-w-2xl mx-auto">
-      Learn common vulnerabilities, safe payload patterns, and explore tools widely used by professional bug bounty hunters.  
-      ⚠️ For **legal, authorized testing only**.
-    </p>
-  </section>
-
-  <!-- KNOWLEDGE SECTION -->
-  <section id="knowledge" class="max-w-6xl mx-auto px-6 py-12">
-    <h2 class="text-2xl font-bold mb-6">Knowledge Base</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">SQL Injection Payloads</h3>
-        <ul class="mt-3 space-y-2 text-sm text-gray-300">
-          <li>Simple: <code>' OR '1'='1 --</code></li>
-          <li>Union Based: <code>' UNION SELECT null,null,null --</code></li>
-          <li>Blind Boolean: <code>' AND 1=1 --</code></li>
-          <li>Time Based: <code>' OR IF(1=1,SLEEP(5),0) --</code></li>
-        </ul>
-        <p class="mt-3 text-xs text-gray-400">Defense: Always use parameterized queries (prepared statements).</p>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Cross-Site Scripting (XSS)</h3>
-        <ul class="mt-3 space-y-2 text-sm text-gray-300">
-          <li>Basic: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code></li>
-          <li>Attribute: <code>" onmouseover="alert(1)</code></li>
-          <li>SVG: <code>&lt;svg onload=alert(1)&gt;</code></li>
-        </ul>
-        <p class="mt-3 text-xs text-gray-400">Defense: Output encode + Content-Security-Policy.</p>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Other Vulnerabilities</h3>
-        <ul class="mt-3 space-y-1 text-sm text-gray-300">
-          <li>🗂 IDOR — Insecure Direct Object Reference</li>
-          <li>🌐 SSRF — Server Side Request Forgery</li>
-          <li>📂 LFI / RFI — Local/Remote File Inclusion</li>
-          <li>🔑 Broken Authentication / Session Issues</li>
-          <li>⚡ RCE — Remote Code Execution</li>
-        </ul>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Best Practices</h3>
-        <ul class="mt-3 space-y-2 text-sm text-gray-300">
-          <li>✅ Test only in legal scope</li>
-          <li>✅ Record request/response proof</li>
-          <li>✅ Report with steps + remediation</li>
-          <li>❌ Don’t share live exploit code</li>
-        </ul>
-      </div>
-
+    <!-- Clickjacking -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Clickjacking Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test with iframes embedding target site</li>
+        <li>🔹 Look for missing <code>X-Frame-Options</code> header</li>
+        <li>🔹 Check sensitive actions (delete, transfer) inside frames</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use X-Frame-Options or CSP frame-ancestors.</p>
     </div>
-  </section>
 
-  <!-- TOOLS SECTION -->
-  <section id="tools" class="max-w-6xl mx-auto px-6 py-12">
-    <h2 class="text-2xl font-bold mb-6">Bug Bounty Tools</h2>
-    <div class="grid md:grid-cols-3 gap-6 text-sm">
-      
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Recon & Enumeration</h3>
-        <ul class="mt-3 space-y-2">
-          <li><a href="https://github.com/projectdiscovery/subfinder" class="text-indigo-400">Subfinder</a> — Subdomain discovery</li>
-          <li><a href="https://github.com/projectdiscovery/httpx" class="text-indigo-400">httpx</a> — HTTP probing</li>
-          <li><a href="https://github.com/tomnomnom/assetfinder" class="text-indigo-400">Assetfinder</a> — Domain assets</li>
-          <li><a href="https://github.com/tomnomnom/waybackurls" class="text-indigo-400">Waybackurls</a> — Old endpoints</li>
-        </ul>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Scanning & Fuzzing</h3>
-        <ul class="mt-3 space-y-2">
-          <li><a href="https://portswigger.net/burp" class="text-indigo-400">Burp Suite</a> — Web proxy & scanner</li>
-          <li><a href="https://github.com/OJ/gobuster" class="text-indigo-400">Gobuster</a> — Directory brute force</li>
-          <li><a href="https://github.com/ffuf/ffuf" class="text-indigo-400">ffuf</a> — Fuzzer</li>
-          <li><a href="https://nmap.org" class="text-indigo-400">Nmap</a> — Network scanner</li>
-        </ul>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Exploitation & Testing</h3>
-        <ul class="mt-3 space-y-2">
-          <li><a href="https://github.com/sqlmapproject/sqlmap" class="text-indigo-400">SQLmap</a> — SQLi testing</li>
-          <li><a href="https://github.com/s0md3v/XSStrike" class="text-indigo-400">XSStrike</a> — XSS scanner</li>
-          <li><a href="https://github.com/wpscanteam/wpscan" class="text-indigo-400">WPScan</a> — WordPress security</li>
-          <li><a href="https://www.metasploit.com/" class="text-indigo-400">Metasploit</a> — Exploit framework</li>
-        </ul>
-      </div>
-
+    <!-- Cryptographic Failures -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Cryptographic Failures Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Check for HTTP (no TLS) usage</li>
+        <li>🔹 Weak SSL/TLS ciphers (SSLv3, RC4)</li>
+        <li>🔹 Hardcoded or default keys</li>
+        <li>🔹 Sensitive data stored unhashed</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use strong TLS, hash + salt sensitive data, rotate keys.</p>
     </div>
-    <p class="mt-6 text-xs text-gray-400">⚠️ Tools are shared for **educational & authorized use only**.</p>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="mt-12 border-t border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-400">
-      <div>© 2025 Dev — Bug Bounty & Security Research</div>
-      <div class="mt-3 md:mt-0">Legal scope only • <a href="#" class="text-indigo-400">Responsible Disclosure Policy</a></div>
+    <!-- CSRF -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">CSRF Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Look for actions with no CSRF token</li>
+        <li>🔹 Test with cross-site POST requests</li>
+        <li>🔹 Check SameSite cookie misconfigs</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Add CSRF tokens, SameSite=strict, re-auth for sensitive ops.</p>
     </div>
-  </footer>
 
-</body>
-</html>
+    <!-- Information Disclosure -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Information Disclosure Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Check error messages for stack traces</li>
+        <li>🔹 Look for .git/.env/.bak files exposed</li>
+        <li>🔹 Review response headers for leaks</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Disable verbose errors, block sensitive files, sanitize logs.</p>
+    </div>
+
+    <!-- OAuth -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">OAuth Vulnerability Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test redirect_uri parameter tampering</li>
+        <li>🔹 Check for missing state parameter (CSRF)</li>
+        <li>🔹 Look for scope escalation</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Validate redirect URIs, enforce state, limit scopes.</p>
+    </div>
+
+    <!-- OS Command Injection -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">OS Command Injection Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Inject commands with ; && | operators</li>
+        <li>🔹 Test file upload leading to command exec</li>
+        <li>🔹 Try time-based payloads (ping, sleep)</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Avoid shell calls, whitelist inputs, use safe APIs.</p>
+    </div>
+
+    <!-- Path Traversal -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Path Traversal Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Try ../../etc/passwd</li>
+        <li>🔹 Test with encoded variants (%2e%2e/)</li>
+        <li>🔹 Look for traversal in zip/tar archives</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Normalize paths, restrict file access, sandbox uploads.</p>
+    </div>
+
+    <!-- SQL Injection -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">SQL Injection Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test query params with ' " -- #</li>
+        <li>🔹 Union-based injection (UNION SELECT)</li>
+        <li>🔹 Boolean/time-based blind SQLi</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Prepared statements, ORM, WAF rules.</p>
+    </div>
+
+    <!-- Business Logic -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Business Logic Vulnerabilities</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test workflow bypasses (e.g. checkout skip)</li>
+        <li>🔹 Negative price/order manipulation</li>
+        <li>🔹 Abuse of API sequence</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Strict server-side validation, business rules checks.</p>
+    </div>
+
+    <!-- JWT -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">JWT Vulnerability Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test alg=none bypass</li>
+        <li>🔹 Key confusion / weak secrets</li>
+        <li>🔹 JWT not expiring after logout</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Use strong signing, rotate keys, validate claims.</p>
+    </div>
+
+    <!-- XSS -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Pro XSS Hunting Field Manual</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Reflected, stored, DOM-based XSS</li>
+        <li>🔹 Try polyglot payloads (SVG, JSON)</li>
+        <li>🔹 Check CSP bypasses</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Output encode, CSP, input sanitize.</p>
+    </div>
+
+    <!-- File Upload -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">File Upload Vulnerability Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Upload php/jsp/aspx shells</li>
+        <li>🔹 Bypass extension filter (.php;.jpg)</li>
+        <li>🔹 Check for file overwrite (../../)</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Validate MIME, randomize file names, store outside webroot.</p>
+    </div>
+
+    <!-- SSRF -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">SSRF Hunting Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Test http://localhost, 127.0.0.1</li>
+        <li>🔹 Access cloud metadata (AWS/GCP/Azure)</li>
+        <li>🔹 Try DNS rebinding</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Whitelist URLs, block internal IPs, use SSRF filters.</p>
+    </div>
+
+    <!-- Authentication -->
+    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+      <h3 class="font-semibold">Authentication Vulnerability Checklist</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-300">
+        <li>🔹 Check weak password policies</li>
+        <li>🔹 Test 2FA bypass (disable, backup codes)</li>
+        <li>🔹 Check session fixation</li>
+      </ul>
+      <p class="mt-3 text-xs text-gray-400">Defense: Enforce MFA, strong password rules, secure session mgmt.</p>
+    </div>
+
+  </div>
+</section>
