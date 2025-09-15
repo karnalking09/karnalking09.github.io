@@ -1,162 +1,81 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dev — Bug Bounty Hunter & Security Researcher</title>
-  <meta name="description" content="Professional bug bounty hunting, ethical security research, write-ups and responsible disclosure." />
-  <!-- Tailwind CDN (production should use a build pipeline) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Small custom tweaks */
-    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
-    .accent { background: linear-gradient(90deg,#7c3aed,#06b6d4); }
-  </style>
-</head>
-<body class="bg-gray-900 text-gray-100 antialiased">
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 backdrop-blur glass border-b border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg accent flex items-center justify-center text-white font-bold">DK</div>
-        <div>
-          <div class="text-sm font-semibold">Dev — Security Research</div>
-          <div class="text-xs text-gray-400">Bug Bounty • Responsible Disclosure</div>
-        </div>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#about" class="hover:text-white">About</a>
-        <a href="#services" class="hover:text-white">Services</a>
-        <a href="#writeups" class="hover:text-white">Write‑ups</a>
-        <a href="#contact" class="hover:text-white">Contact</a>
-        <a href="#" class="px-3 py-2 bg-indigo-600 rounded-md text-sm font-medium">Hire / Report</a>
-      </nav>
-      <button class="md:hidden p-2 rounded-md border border-gray-700">☰</button>
-    </div>
-  </header>
+# app.rb
+<section id="contact" class="max-w-6xl mx-auto px-6 py-12">
+<div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+<h2 class="text-2xl font-bold">Contact / Report</h2>
+<p class="mt-2 text-sm text-gray-400">Use this form to share a security report or request engagement details. For immediate triage please include URL, impact summary and steps to reproduce.</p>
+<form class="mt-4 grid gap-4 md:grid-cols-2" action="/report" method="post">
+<input name="name" placeholder="Your name" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
+<input name="email" placeholder="Email" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
+<input name="target" placeholder="Target URL (if applicable)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" />
+<textarea name="summary" placeholder="Short summary of the issue (don’t include exploit code)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" rows="5"></textarea>
+<button type="submit" class="md:col-span-2 px-4 py-3 bg-indigo-600 rounded-md">Send report</button>
+</form>
+</div>
+</section>
 
-  <!-- HERO -->
-  <section class="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
-    <div class="flex-1">
-      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Professional Bug Bounty Hunting<br class="hidden md:inline"> & Responsible Security Research</h1>
-      <p class="mt-4 text-gray-300 max-w-xl">Modern approach to web & mobile security: recon, vulnerability discovery, high-quality write-ups and responsible disclosure. All testing performed ethically and with permission or within public bug-bounty programs.</p>
-      <div class="mt-6 flex gap-3">
-        <a href="#contact" class="px-5 py-3 bg-indigo-600 rounded-lg font-medium">Report a vulnerability</a>
-        <a href="#writeups" class="px-5 py-3 border border-gray-700 rounded-lg">Read write‑ups</a>
-      </div>
 
-      <!-- quick stats -->
-      <div class="mt-8 grid grid-cols-3 gap-4 max-w-sm text-center text-gray-200">
-        <div>
-          <div class="text-2xl font-semibold">+120</div>
-          <div class="text-xs text-gray-400">Valid findings</div>
-        </div>
-        <div>
-          <div class="text-2xl font-semibold">$45k+</div>
-          <div class="text-xs text-gray-400">Bounties earned</div>
-        </div>
-        <div>
-          <div class="text-2xl font-semibold">100%</div>
-          <div class="text-xs text-gray-400">Responsible disclosures</div>
-        </div>
-      </div>
-    </div>
+<!-- Report template & resources -->
+<section class="mt-6 grid md:grid-cols-2 gap-6">
+<div class="p-6 bg-gray-800 rounded-lg">
+<h2 class="text-lg font-semibold">Report template (fields)</h2>
+<ol class="list-decimal ml-4 mt-2 text-gray-200 text-sm">
+<li>Title</li>
+<li>Affected URL / API endpoint</li>
+<li>Parameter / input vector</li>
+<li>Observed behavior (screenshots/requests)</li>
+<li>Impact - why it matters</li>
+<li>Fix / remediation suggestion</li>
+<li>Timeline and contact</li>
+</ol>
+</div>
 
-    <div class="flex-1">
-      <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl border border-gray-800">
-        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="security" class="rounded-lg shadow-lg object-cover w-full h-64">
-        <div class="mt-4 text-sm text-gray-400">Ethical mindset — proofs, writeups and clean reports. (No illegal hacking.)</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="max-w-6xl mx-auto px-6 py-12">
-    <div class="grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h2 class="text-2xl font-bold">About</h2>
-        <p class="mt-3 text-gray-300">I help organizations find real security issues before attackers do. Focus areas include web applications, mobile apps, APIs and cloud misconfigurations — all tested under legal and authorized scopes (bug bounty platforms, engagement contracts, or explicit permission).</p>
+<div class="p-6 bg-gray-800 rounded-lg">
+<h2 class="text-lg font-semibold">Learning resources</h2>
+<ul class="mt-2 text-gray-200 text-sm">
+<li>PortSwigger Academy</li>
+<li>OWASP Juice Shop</li>
+<li>DVWA / WebGoat</li>
+<li>Official bug bounty program docs (HackerOne, Bugcrowd)</li>
+</ul>
+</div>
+</section>
 
-        <ul class="mt-4 space-y-2 text-gray-300">
-          <li>✅ Responsible disclosure & clear remediation guidance</li>
-          <li>✅ High-quality, reproducible Proof of Concepts (PoCs)</li>
-          <li>✅ Full writeups and timelines for triage</li>
-        </ul>
-      </div>
-      <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-        <h3 class="text-lg font-semibold">Legal & Ethics</h3>
-        <p class="mt-2 text-sm text-gray-400">This site and the services offered are strictly for legal, authorized security testing (bug bounty programs and contracted engagements). I will not assist or provide guidance for illegal hacking, account takeover, phishing, or any activity that violates laws or platform terms.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="max-w-6xl mx-auto px-6 py-12">
-    <h2 class="text-2xl font-bold">Services</h2>
-    <div class="mt-6 grid md:grid-cols-3 gap-6">
-      <div class="p-6 bg-gray-800 rounded-lg border border-gray-700">
-        <h4 class="font-semibold">Bug Bounty Hunting</h4>
-        <p class="mt-2 text-sm text-gray-400">Targeted testing within public programs (HackerOne, Bugcrowd, platform-specific programs). High-signal reports focusing on impact & reproducibility.</p>
-      </div>
-      <div class="p-6 bg-gray-800 rounded-lg border border-gray-700">
-        <h4 class="font-semibold">Pentest & Recon</h4>
-        <p class="mt-2 text-sm text-gray-400">Scoped engagement testing: web, API, mobile and cloud recon, and prioritized findings with remediation steps.</p>
-      </div>
-      <div class="p-6 bg-gray-800 rounded-lg border border-gray-700">
-        <h4 class="font-semibold">Write‑ups & Training</h4>
-        <p class="mt-2 text-sm text-gray-400">Detailed writeups, public blog posts about techniques (ethical) and internal training for engineering teams.</p>
-      </div>
-    </div>
-  </section>
+<section class="mt-6 p-6 bg-gray-800 rounded-lg">
+<h2 class="text-xl font-semibold">Local lab: Docker Compose (OWASP Juice Shop)</h2>
+<p class="text-gray-300">Copy into <code>docker-compose.yml</code> and run <code>docker-compose up -d</code>.</p>
+<pre class="bg-gray-900 p-3 rounded text-xs overflow-auto text-gray-200">version: "3"
+services:
+juice-shop:
+image: bkimminich/juice-shop:latest
+ports:
+- "3000:3000"
+restart: unless-stopped
+</pre>
+<p class="text-sm text-gray-400">Access the lab at <code>http://localhost:3000</code>. Practice there — do not test real third-party systems without permission.</p>
+</section>
 
-  <!-- WRITEUPS / BLOG -->
-  <section id="writeups" class="max-w-6xl mx-auto px-6 py-12">
-    <h2 class="text-2xl font-bold">Recent write‑ups</h2>
-    <div class="mt-6 grid md:grid-cols-3 gap-6">
-      <!-- Card 1 -->
-      <article class="p-4 bg-gray-800 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Insecure Direct Object Reference — case study</h3>
-        <p class="mt-2 text-sm text-gray-400">Summary and remediation steps. (Public writeup, no exploit code that enables abuse.)</p>
-        <a href="#" class="mt-3 inline-block text-sm text-indigo-400">Read more →</a>
-      </article>
-      <!-- Card 2 -->
-      <article class="p-4 bg-gray-800 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">API auth bypass — lessons learned</h3>
-        <p class="mt-2 text-sm text-gray-400">How the issue was found and fixed, with mitigation tips for developers.</p>
-        <a href="#" class="mt-3 inline-block text-sm text-indigo-400">Read more →</a>
-      </article>
-      <!-- Card 3 -->
-      <article class="p-4 bg-gray-800 rounded-lg border border-gray-700">
-        <h3 class="font-semibold">Secure mobile storage patterns</h3>
-        <p class="mt-2 text-sm text-gray-400">Responsible bug hunting on mobile: what to test and what to avoid publishing.</p>
-        <a href="#" class="mt-3 inline-block text-sm text-indigo-400">Read more →</a>
-      </article>
-    </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="max-w-6xl mx-auto px-6 py-12">
-    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-      <h2 class="text-2xl font-bold">Contact / Report</h2>
-      <p class="mt-2 text-sm text-gray-400">Use this form to share a security report or request engagement details. For immediate triage please include URL, impact summary and steps to reproduce.</p>
-      <form class="mt-4 grid gap-4 md:grid-cols-2">
-        <input placeholder="Your name" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
-        <input placeholder="Email" class="p-3 bg-gray-900 rounded-md border border-gray-700" />
-        <input placeholder="Target URL (if applicable)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" />
-        <textarea placeholder="Short summary of the issue (don’t include exploit code)" class="p-3 bg-gray-900 rounded-md border border-gray-700 md:col-span-2" rows="5"></textarea>
-        <button type="submit" class="md:col-span-2 px-4 py-3 bg-indigo-600 rounded-md">Send report</button>
-      </form>
-    </div>
-  </section>
+<section class="mt-6 p-6 bg-gray-800 rounded-lg">
+<h2 class="text-xl font-semibold">Sanitized secure snippets (Ruby)</h2>
+<pre class="bg-gray-900 p-3 rounded text-xs overflow-auto text-gray-200"># Parameterized query (Sequel)
+DB[:users].where(name: params['name']).all
 
-  <!-- FOOTER -->
-  <footer class="mt-12 border-t border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-400">
-      <div>© 2025 Dev — Bug Bounty & Security Research</div>
-      <div class="mt-3 md:mt-0">Made for legal, authorized security testing only • <a href="#" class="text-indigo-400">Responsible Disclosure Policy</a></div>
-    </div>
-  </footer>
 
-</body>
-</html>
+# ERB escape example
+&lt;%= h(user_input) %&gt;
 
+
+# Path traversal blocker
+requested = File.expand_path(params['file'], "/srv/app/files")
+if requested.start_with?(File.expand_path("/srv/app/files"))
+send_file requested
+else
+halt 403, "Forbidden"
+end
+</pre>
+</section>
+
+
+<footer class="mt-8 text-sm text-gray-400">RUBI LEGBEJE — This site is educational and defensive. I will NOT provide exploit payloads usable against third-party systems. Options: (A) Generate downloadable PDF report template. (B) Create a ready-to-run docker-compose lab ZIP. (C) Add download buttons for scripts and PDFs.</footer>
