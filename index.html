@@ -259,7 +259,7 @@
                 <button class="nav-btn active" onclick="showSection('bug-bounty')">🐛 Bug Bounty Phases</button>
                 <button class="nav-btn" onclick="showSection('hacking-techniques')">💻 Hacking Techniques</button>
                 <button class="nav-btn" onclick="showSection('tools')">🛠️ Tools & Resources</button>
-                <button class="nav-btn" onclick="showSection('questions')">❓ Ask Questions</button>
+                <button class="nav-btn" onclick="showSection('bug-reports')">📝 Bug Report Templates</button>
             </div>
         </div>
     </nav>
@@ -1163,42 +1163,7 @@
             
             setTimeout(typeWriter, 500);
 
-            // Add search functionality
-            const searchInput = document.createElement('input');
-            searchInput.type = 'text';
-            searchInput.placeholder = 'Search tools, techniques, or information...';
-            searchInput.className = 'search-input';
-            searchInput.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 10px;
-                border: 2px solid #ff0000;
-                border-radius: 25px;
-                background: rgba(0,0,0,0.8);
-                color: white;
-                width: 300px;
-                z-index: 1000;
-                backdrop-filter: blur(10px);
-            `;
-            
-            document.body.appendChild(searchInput);
-
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                const allContent = document.querySelectorAll('.tool-item, .technique-item');
-                
-                allContent.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(searchTerm) || searchTerm === '') {
-                        item.style.display = 'block';
-                        item.style.backgroundColor = searchTerm && text.includes(searchTerm) ? 
-                            'rgba(255, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
+            // Search bar removed as requested
 
             // Add progress indicator
             const progressBar = document.createElement('div');
